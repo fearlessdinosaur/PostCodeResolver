@@ -23,22 +23,21 @@ class ValidatorTest(unittest.TestCase):
         self.assertEqual(output["errors"][0], "outward code Invalid")
 
     def testInvalidCase_LetterInPostcodeSector(self):
-        output = val.validatePostCode("EC1A 1BB")
+        output = val.validatePostCode("EC1A ABB")
         self.assertEqual(output["errorCode"], 1)
         self.assertEqual(len(output["errors"]), 1)
         self.assertEqual(output["errors"][0], "inward code Invalid")
 
     def testInvalidCase_NumberInPostcodeUnit(self):
-        output = val.validatePostCode("EC1A 1BB")
+        output = val.validatePostCode("EC1A 1B1")
         self.assertEqual(output["errorCode"], 1)
         self.assertEqual(len(output["errors"]), 1)
         self.assertEqual(output["errors"][0], "inward code Invalid")
 
     def testInvalidCase_MultipleErrors(self):
-        output = val.validatePostCode("EC1A 1BB")
+        output = val.validatePostCode("111A 11B")
         self.assertEqual(output["errorCode"], 1)
-        self.assertEqual(len(output["errors"]), 1)
-        self.assertEqual(output["errors"][0], "inward code Invalid")
+        self.assertEqual(len(output["errors"]), 2)
 
     def testInvalidCase_TooLong(self):
         output = val.validatePostCode("EC1A 1BBA")
