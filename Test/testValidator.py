@@ -5,7 +5,7 @@ import source.postCodeValidator as val
 class ValidatorTest(unittest.TestCase):
 
     def testValidCase(self):
-        output = val.validatePostCode("abcd")
+        output = val.validatePostCode("abcdefgh")
         print(output)
         self.assertEqual(output["errorCode"], 0)
         self.assertEqual(len(output["errors"]), 0)
