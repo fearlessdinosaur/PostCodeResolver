@@ -4,12 +4,45 @@ import source.postCodeValidator as val
 
 class ValidatorTest(unittest.TestCase):
 
-    def testValidCase(self):
+    # The 6 happy paths are based on the formats
+    # given in https://en.wikipedia.org/wiki/Postcodes_in_the_United_Kingdom#Validation
+    def testValidCase_Format1(self):
         output = val.validatePostCode("EC1A 1BB")
         print(output)
         self.assertEqual(output["errorCode"], 0)
         self.assertEqual(len(output["errors"]), 0)
 
+    def testValidCase_Format2(self):
+        output = val.validatePostCode("A9A 9AA")
+        print(output)
+        self.assertEqual(output["errorCode"], 0)
+        self.assertEqual(len(output["errors"]), 0)
+
+    def testValidCase_Format3(self):
+        output = val.validatePostCode("A9 9AA")
+        print(output)
+        self.assertEqual(output["errorCode"], 0)
+        self.assertEqual(len(output["errors"]), 0)
+
+    def testValidCase_Format4(self):
+        output = val.validatePostCode("A99 9AA")
+        print(output)
+        self.assertEqual(output["errorCode"], 0)
+        self.assertEqual(len(output["errors"]), 0)
+
+    def testValidCase_Format5(self):
+        output = val.validatePostCode("AA9 9AA")
+        print(output)
+        self.assertEqual(output["errorCode"], 0)
+        self.assertEqual(len(output["errors"]), 0)
+
+    def testValidCase_Format6(self):
+        output = val.validatePostCode("AA99 9AA")
+        print(output)
+        self.assertEqual(output["errorCode"], 0)
+        self.assertEqual(len(output["errors"]), 0)
+
+    # Sad paths/error cases
     def testInvalidCase_DigitInAreaCode(self):
         output = val.validatePostCode("1C1A 1BB")
         self.assertEqual(output["errorCode"], 1)
@@ -47,6 +80,9 @@ class ValidatorTest(unittest.TestCase):
 
     def testInvalidCase_TooShort(self):
         output = val.validatePostCode("EC1A ")
-        self.assertEqual(output["errorCode"], 1)
+        self.assertEqual(1,output["errorCode"])
         self.assertEqual(len(output["errors"]), 2)
         self.assertEqual(output["errors"][0], "given postcode is too Short")
+
+if __name__ == '__main__':
+    unittest.main()
