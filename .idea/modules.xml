@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/PostCodeValidator.iml" filepath="$PROJECT_DIR$/.idea/PostCodeValidator.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/PostCodeResolver.iml" filepath="$PROJECT_DIR$/.idea/PostCodeResolver.iml" />
     </modules>
   </component>
 </project>

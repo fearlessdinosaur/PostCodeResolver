@@ -1,34 +1,40 @@
 import unittest
-import source.postCodeValidator as val
+import source.PostCodeResolver as val
 
 
 class MyTestCase(unittest.TestCase):
 
+    # happy paths
     def testValidFormat_Unformatted(self):
-        response = val.formatPostCode("EC1A1BB")
+        resolver = val.PostCodeResolver()
+        response = resolver.formatPostCode("EC1A1BB")
         self.assertEqual(0, response["errorCode"])
         self.assertEqual("EC1A 1BB", response["postCode"])
 
     def testValidFormat_Formatted(self):
-        response = val.formatPostCode("EC1A 1BB")
+        resolver = val.PostCodeResolver()
+        response = resolver.formatPostCode("EC1A 1BB")
         self.assertEqual(0, response["errorCode"])
         self.assertEqual("EC1A 1BB", response["postCode"])
 
-
+    # Sad paths/error cases
     def testInvalidCase_tooLong(self):
-        response = val.formatPostCode("EC1A1BBBB")
+        resolver = val.PostCodeResolver()
+        response = resolver.formatPostCode("EC1A1BBBB")
         self.assertEqual(1, response["errorCode"])
         self.assertEqual(1, len(response["errors"]))
         self.assertEqual(response["errors"][0], "given postcode is too long")
 
     def testInvalidCase_tooShort(self):
-        response = val.formatPostCode("EC1")
+        resolver = val.PostCodeResolver()
+        response = resolver.formatPostCode("EC1")
         self.assertEqual(1, response["errorCode"])
-        self.assertEqual(1,len(response["errors"]))
-        self.assertEqual(response["errors"][0], "given postcode is too Short")
+        self.assertEqual(1, len(response["errors"]))
+        self.assertEqual(response["errors"][0], "given postcode is too short")
 
     def testInvalidCase_CannotBeFormatted(self):
-        response = val.formatPostCode("E11A11B")
+        resolver = val.PostCodeResolver()
+        response = resolver.formatPostCode("E11A11B")
         self.assertEqual(1, response["errorCode"])
         self.assertEqual(len(response["errors"]), 1)
         self.assertEqual(response["errors"][0], "given postcode cannot be formatted")
