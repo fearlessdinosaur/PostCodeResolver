@@ -1,7 +1,0 @@
-setup.py
-postCodeValidator.egg-info/PKG-INFO
-postCodeValidator.egg-info/SOURCES.txt
-postCodeValidator.egg-info/dependency_links.txt
-postCodeValidator.egg-info/top_level.txt
-test/testFormatter.py
-test/testValidator.py
